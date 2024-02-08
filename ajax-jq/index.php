@@ -51,10 +51,12 @@
                 alert("All Required");
             } else {
                 $.get(
-                    "process.php", {
-                        uname: uname,
-                        lname: lname
-                    },
+                    "process.php", 
+                    // {
+                    //     uname: uname,
+                    //     lname: lname
+                    // },
+                    $("#myForm").serialize(),
                     function(response) {
                         $("#result").text(response);
                     },
