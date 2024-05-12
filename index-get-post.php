@@ -9,11 +9,6 @@
 </head>
 
 <body>
-    <style>
-        .loader{
-            display: none;
-        }
-    </style>
     <div class="container py-5 text-center">
         <div class="row">
             <h1>This is GET Method</h1>
@@ -26,9 +21,6 @@
             </div>
 
             <div id="get_form_data"></div>
-            <div class="loader" id="loader">
-                <img src="loader.gif" alt="Loader">
-            </div>
 
         </div>
     </div>
@@ -40,30 +32,20 @@
         $('#sbtn').click(function() {
             var uname = $('#uName').val();
             var email = $('#eMail').val();
-
-            if(uname == "" && email == ""){
-                alert('All field are Mandatory');
-            }else{
-                $.ajax({
-                    url:'insert.php',
-                    type:'post',
-                    data:{
-                        uname:uname,email:email
-                    },
-                    beforeSend:function(){
-                        $('#loader').show();
-                    },
-                    success:function(result,status,xhr){
-                        $('#get_form_data').text(result);
-                        $('#loader').hide();
-                    },
-                    error:function(xhr,status,result){
-                        $('#get_form_data').text(status);
-                    },
-                    complete:function(xhr,status){
-                        $('#get_form_data').text(status);
+            
+            if(uname == "" || email == "") {
+                alert('All fields are Mandatory');
+            } else {
+                $.get(
+                    "insert.php",
+                    // {
+                    //     uname:uname,email:email
+                    // },
+                    $('#myForm').serialize(),
+                    function(response){
+                        $('#get_form_data').text(response);
                     }
-                })
+                );
             }
         });
     });
